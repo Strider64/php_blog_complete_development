@@ -11,22 +11,15 @@ use website_project\utilities\Validate;
 include 'lib/functions/functions.inc.php';
 
 createTables(); // Create database tables if necessary:
+
 $data = [];
 $errMessage = FALSE;
-
-$closeBox = filter_input(INPUT_GET, 'close', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-if (isset($closeBox) && $closeBox === 'yes') {
-    
-}
 
 $register = filter_input(INPUT_POST, 'action');
 if (isset($register) && $register === 'register') {
     $data['name'] = filter_input(INPUT_POST, 'name');
     $data['email'] = filter_input(INPUT_POST, 'email');
     $data['password'] = filter_input(INPUT_POST, 'password');
-
-
     $data['confirmation'] = generateRandom();
 
     $valid = new Validate($data);
@@ -55,7 +48,6 @@ if (isset($logout) && $logout === 'yes') {
     logout();
 }
 
-
 /*
  * Write to blog:
  */
@@ -76,7 +68,6 @@ if (isset($submit) && $submit === "Submit") {
         echo 'Error, Something went wrong';
     }
 }
-
 
 /*
  * Display blog setup using PDO.
