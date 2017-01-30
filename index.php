@@ -11,11 +11,11 @@ use website_project\utilities\Validate;
 include 'lib/functions/functions.inc.php';
 
 createTables(); // Create database tables if necessary:
-
 $data = [];
 $errMessage = FALSE;
 
 $register = filter_input(INPUT_POST, 'action');
+
 if (isset($register) && $register === 'register') {
     $data['name'] = filter_input(INPUT_POST, 'name');
     $data['email'] = filter_input(INPUT_POST, 'email');
@@ -33,7 +33,12 @@ if (isset($register) && $register === 'register') {
         $errMessage = TRUE;
     }
 }
+
+/*
+ * Login user
+ */
 $login = filter_input(INPUT_POST, "action");
+
 if (isset($login) && $login === 'login') {
     $failed = login($pdo); // Login function:
 }
@@ -190,39 +195,6 @@ $result = $stmt->execute();
             <h2><?php echo '&copy; ' . gmdate( 'Y', time( )) . ' J.R. Pepp - All Rights Reserved'; ?></h2>
         </footer>
         <script src="lib/js/jquery-3.1.1.min.js"></script>
-        <script>
-            $(function () {
-                var $registerBtn = $('#registerBtn'),
-                        $register = $('#register'),
-                        $loginBtn = $('#loginBtn'),
-                        $login = $('#login'),
-                        $enterBlogBtn = $('#enterBlogBtn'),
-                        $enterBlog = $('#mySimpleBlogForm');
-
-                $register.css('position', 'absolute');
-                $register.hide();
-
-                $registerBtn.on('click', function (e) {
-                    e.preventDefault();
-                    $register.slideToggle('slow');
-                });
-
-                $login.hide();
-
-                $loginBtn.on('click', function (e) {
-                    e.preventDefault();
-                    $login.animate({width: 'toggle'}, 'slow');
-                });
-
-                $enterBlog.css('position', 'absolute');
-                $enterBlog.hide();
-
-                $enterBlogBtn.on('click', function (e) {
-                    e.preventDefault();
-                    $enterBlog.slideToggle('slow');
-                });
-
-            }); // End of Document Ready Function:
-        </script>
+        <script src="lib/js/hide_show.js"></script>
     </body>
 </html>
